@@ -1,0 +1,49 @@
+.main_vbox {
+    -fx-background-color: #1b4678;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+}
+.text_field {
+        -fx-background-color: #white;
+        -fx-border-radius: 0;
+        -fx-border-width: 0px;
+        -fx-background-radius: 0;
+        -fx-text-box-border: transparent;
+}
+.text_field:focused {
+    -fx-focus-color: transparent;
+}
+
+.button {
+    -fx-background-color: #1c8ea2;
+    -fx-text-fill: white;
+    -fx-border-radius: 0;
+    -fx-border-width: 0px;
+    -fx-background-radius: 0;
+    -fx-focus-color: transparent;
+}
+
+.weather_pane{
+    -fx-background-color: #224f83;
+}
+
+
+.weather_hbox {
+      -fx-background-color: #224f83;
+      -fx-border-radius: ;
+      -fx-background-radius: 3;
+      -fx-border-width: 0.5px;
+      -fx-border-color: white;
+}
+
+.weather_date {
+    -fx-background-color: #224f83;
+}
+
+.daily_hbox{
+        -fx-background-color: #f2f2f2;
+}
+
+.daily_date_vbox{
+      -fx-background-color: #b3ffff;
+}
