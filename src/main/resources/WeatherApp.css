@@ -4,7 +4,7 @@
     -fx-background-radius: 0;
 }
 .text_field {
-        -fx-background-color: #white;
+        -fx-background-color: #ffffff;
         -fx-border-radius: 0;
         -fx-border-width: 0px;
         -fx-background-radius: 0;
@@ -30,7 +30,7 @@
 
 .weather_hbox {
       -fx-background-color: #224f83;
-      -fx-border-radius: ;
+      -fx-border-radius: 0;
       -fx-background-radius: 3;
       -fx-border-width: 0.5px;
       -fx-border-color: white;

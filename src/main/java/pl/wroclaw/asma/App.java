@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
 
 import java.io.IOException;
 
@@ -33,6 +34,9 @@ public class App extends Application {
         double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.92;
         stage.setX(x);
         stage.setY(y);
+
+        GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService("London", "GB");
+        geocodingApiClientService.start();
     }
 
     public static void main(String[] args) {
