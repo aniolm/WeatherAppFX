@@ -15,31 +15,29 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
-public class GeocodingApiClientService extends Service<Void> {
+public class GeocodingApiClientService extends Service<CityCoordinates> {
 
     private String city;
     private String countryCode;
-    //private CityCoordinates cityCoordinates = new CityCoordinates(0.0,0.0);
-
-
 
     public GeocodingApiClientService(String city, String countryCode ) {
         this.city = city;
         this.countryCode = countryCode;
     }
 
+
     @Override
-    protected Task createTask() {
-        return new Task<Void>() {
+    protected Task<CityCoordinates> createTask() {
+        return new Task<pl.wroclaw.asma.model.CityCoordinates>() {
             @Override
-            protected Void call() throws Exception {
-                getCityCoordinates();
-                return null;
+            protected CityCoordinates call() throws Exception {
+                return getCityCoordinates();
             }
         };
     }
 
-    private void getCityCoordinates(){
+    private CityCoordinates getCityCoordinates(){
+        CityCoordinates cityCoordinates = new CityCoordinates();
         HttpClient client = HttpClient.newHttpClient();
         URI requestURL =  createRequestURI(this.city, this.countryCode);
         HttpRequest request = HttpRequest.newBuilder()
@@ -52,15 +50,15 @@ public class GeocodingApiClientService extends Service<Void> {
             ObjectMapper objectMapper = new ObjectMapper();
 
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            CityCoordinates[] cityCoordinates = objectMapper.readValue(response.body(), CityCoordinates[].class);
-            System.out.println(objectMapper.writeValueAsString(cityCoordinates));
+            CityCoordinates[] cityCoordinatesArray = objectMapper.readValue(response.body(), CityCoordinates[].class);
+            cityCoordinates = cityCoordinatesArray[0];
 
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        return cityCoordinates;
     }
 
     public URI createRequestURI(String city, String countryCode){

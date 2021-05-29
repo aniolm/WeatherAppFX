@@ -6,7 +6,7 @@ public class CityCoordinates {
 
     private Double lat;
 
-    public Double lon;
+    private Double lon;
 
     private String country;
 
