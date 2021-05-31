@@ -9,6 +9,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
 import pl.wroclaw.asma.controller.services.IpGeolocationApiClientService;
+import pl.wroclaw.asma.controller.services.PublicIpIdentificationService;
 import pl.wroclaw.asma.controller.services.WeatherApiClientService;
 import pl.wroclaw.asma.model.CityCoordinates;
 import pl.wroclaw.asma.model.IpGeolocation;
@@ -40,19 +41,23 @@ public class App extends Application {
         stage.setX(x);
         stage.setY(y);
 
-        IpGeolocationApiClientService ipGeolocationApiClientService = new IpGeolocationApiClientService("81.190.226.167");
+        PublicIpIdentificationService publicIpIdentificationService = new PublicIpIdentificationService();
+        publicIpIdentificationService.start();
+        publicIpIdentificationService.setOnSucceeded(event -> {
+
+        IpGeolocationApiClientService ipGeolocationApiClientService = new IpGeolocationApiClientService(publicIpIdentificationService.getValue());
         ipGeolocationApiClientService.start();
-        ipGeolocationApiClientService.setOnSucceeded(event -> {
+        ipGeolocationApiClientService.setOnSucceeded(event1 -> {
             IpGeolocation ipGeolocation = ipGeolocationApiClientService.getValue();
             GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(ipGeolocation.getCity(), ipGeolocation.getCity());
             geocodingApiClientService.start();
 
-            geocodingApiClientService.setOnSucceeded(event1 -> {
+            geocodingApiClientService.setOnSucceeded(event2 -> {
                 CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
                 WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
                 weatherApiClientService.start();
 
-                weatherApiClientService.setOnSucceeded(event2 -> {
+                weatherApiClientService.setOnSucceeded(event3 -> {
                     WeatherForecast weatherForecast = weatherApiClientService.getValue();
                     System.out.println(weatherForecast.getCurrentWeather().getTemp());
                     System.out.println(weatherForecast.getCurrentWeather().getPressure());
@@ -60,7 +65,7 @@ public class App extends Application {
                     });
                  });
         });
-
+        });
     }
 
     public static void main(String[] args) {
