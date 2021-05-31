@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
+import pl.wroclaw.asma.controller.services.IpGeolocationApiClientService;
 import pl.wroclaw.asma.controller.services.WeatherApiClientService;
 import pl.wroclaw.asma.model.CityCoordinates;
+import pl.wroclaw.asma.model.IpGeolocation;
 import pl.wroclaw.asma.model.WeatherForecast;
 
 import java.io.IOException;
@@ -38,19 +40,25 @@ public class App extends Application {
         stage.setX(x);
         stage.setY(y);
 
-        GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService("London", "GB");
-        geocodingApiClientService.start();
-        geocodingApiClientService.setOnSucceeded(event -> {
-            CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
+        IpGeolocationApiClientService ipGeolocationApiClientService = new IpGeolocationApiClientService("81.190.226.167");
+        ipGeolocationApiClientService.start();
+        ipGeolocationApiClientService.setOnSucceeded(event -> {
+            IpGeolocation ipGeolocation = ipGeolocationApiClientService.getValue();
+            GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(ipGeolocation.getCity(), ipGeolocation.getCity());
+            geocodingApiClientService.start();
 
-            WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
-            weatherApiClientService.start();
-            weatherApiClientService.setOnSucceeded(event2 -> {
-                WeatherForecast weatherForecast = weatherApiClientService.getValue();
-                System.out.println(weatherForecast.getCurrentWeather().getTemp());
-                System.out.println(weatherForecast.getCurrentWeather().getPressure());
-                System.out.println(weatherForecast.getCurrentWeather().getHumidity());
-            });
+            geocodingApiClientService.setOnSucceeded(event1 -> {
+                CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
+                WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
+                weatherApiClientService.start();
+
+                weatherApiClientService.setOnSucceeded(event2 -> {
+                    WeatherForecast weatherForecast = weatherApiClientService.getValue();
+                    System.out.println(weatherForecast.getCurrentWeather().getTemp());
+                    System.out.println(weatherForecast.getCurrentWeather().getPressure());
+                    System.out.println(weatherForecast.getCurrentWeather().getHumidity());
+                    });
+                 });
         });
 
     }

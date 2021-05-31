@@ -5,6 +5,7 @@ module WeatherAppFX {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
+    requires geoip2;
 
     opens pl.wroclaw.asma to javafx.fxml;
     opens pl.wroclaw.asma.controller;
