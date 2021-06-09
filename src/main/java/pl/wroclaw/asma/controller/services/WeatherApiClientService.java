@@ -15,10 +15,10 @@ import java.net.http.HttpResponse;
 
 public class WeatherApiClientService extends Service<WeatherForecast>  {
 
-    private Double longitude;
-    private Double latitude;
+    private String longitude;
+    private String latitude;
 
-    public WeatherApiClientService(Double latitude, Double longitude) {
+    public WeatherApiClientService(String latitude, String longitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }

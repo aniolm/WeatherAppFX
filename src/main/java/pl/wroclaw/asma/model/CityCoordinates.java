@@ -1,13 +1,19 @@
 package pl.wroclaw.asma.model;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class CityCoordinates {
 
+    @CsvBindByName(column = "city_ascii")
     private String name;
 
-    private Double lat;
+    @CsvBindByName(column = "lat")
+    private String lat;
 
-    private Double lon;
+    @CsvBindByName(column = "lng")
+    private String lon;
 
+    @CsvBindByName(column = "iso2")
     private String country;
 
     public String getName() {
@@ -26,19 +32,19 @@ public class CityCoordinates {
         this.country = country;
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double latitude) {
+    public void setLat(String latitude) {
         this.lat = latitude;
     }
 
-    public Double getLon() {
+    public String getLon() {
         return lon;
     }
 
-    public void setLon(Double lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
 

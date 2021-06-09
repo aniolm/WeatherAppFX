@@ -7,10 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
-import pl.wroclaw.asma.controller.services.IpGeolocationApiClientService;
-import pl.wroclaw.asma.controller.services.PublicIpIdentificationService;
-import pl.wroclaw.asma.controller.services.WeatherApiClientService;
+import pl.wroclaw.asma.controller.services.*;
 import pl.wroclaw.asma.model.CityCoordinates;
 import pl.wroclaw.asma.model.IpGeolocation;
 import pl.wroclaw.asma.model.WeatherForecast;
@@ -40,6 +37,9 @@ public class App extends Application {
         double y = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) * 0.92;
         stage.setX(x);
         stage.setY(y);
+
+        CityListLoaderService cityListLoaderService = new CityListLoaderService();
+        cityListLoaderService.start();
 
         PublicIpIdentificationService publicIpIdentificationService = new PublicIpIdentificationService();
         publicIpIdentificationService.start();
