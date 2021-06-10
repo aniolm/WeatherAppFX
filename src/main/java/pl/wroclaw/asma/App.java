@@ -38,8 +38,6 @@ public class App extends Application {
         stage.setX(x);
         stage.setY(y);
 
-        CityListLoaderService cityListLoaderService = new CityListLoaderService();
-        cityListLoaderService.start();
 
         PublicIpIdentificationService publicIpIdentificationService = new PublicIpIdentificationService();
         publicIpIdentificationService.start();

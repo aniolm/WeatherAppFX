@@ -24,9 +24,7 @@ public class CityListLoaderService extends Service<List<CityCoordinates>> {
 
     private List<CityCoordinates> loadCityList() {
 
-        //String fileName = "d:\\programowanie\\WeatherAppFX\\src\\main\\resources\\cities.csv";
         String fileName = "src/main/resources/cities.csv";
-        System.out.println(fileName);
         List<CityCoordinates> cityList = new ArrayList<>();
 
         try {
@@ -35,16 +33,9 @@ public class CityListLoaderService extends Service<List<CityCoordinates>> {
                     .withSeparator(';')
                     .build()
                     .parse();
-            for(CityCoordinates cityCoordinates: cityList) {
-                System.out.println(cityCoordinates.getName());
-                System.out.println(cityCoordinates.getCountry());
-                System.out.println(cityCoordinates.getLon());
-                System.out.println(cityCoordinates.getLat());
-            };
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return cityList;
     }
-
 }

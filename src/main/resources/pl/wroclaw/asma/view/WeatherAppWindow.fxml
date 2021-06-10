@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="213.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wroclaw.asma.controller.WeatherAppController">
+<AnchorPane prefHeight="400.0" prefWidth="213.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wroclaw.asma.controller.WeatherAppController">
    <children>
       <VBox layoutY="14.0" prefHeight="400.0" prefWidth="223.0" styleClass="main_vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="33.0" prefWidth="218.0" spacing="2.0">
                <children>
-                  <TextField prefHeight="23.0" prefWidth="150.0" styleClass="text_field" />
+                  <TextField fx:id="firstSearchField" prefHeight="23.0" prefWidth="150.0" styleClass="text_field" />
                   <Button mnemonicParsing="false">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="CROSSHAIRS" />
