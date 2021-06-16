@@ -1,19 +1,13 @@
 package pl.wroclaw.asma.model;
 
-import com.opencsv.bean.CsvBindByName;
-
 public class CityCoordinates {
 
-    @CsvBindByName(column = "city_ascii")
     private String name;
 
-    @CsvBindByName(column = "lat")
     private String lat;
 
-    @CsvBindByName(column = "lng")
     private String lon;
 
-    @CsvBindByName(column = "iso2")
     private String country;
 
     public String getName() {

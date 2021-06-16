@@ -22,10 +22,8 @@ public class WeatherAppController implements Initializable {
     private WeatherForecast weatherForecast;
     private Map<String, String> cityNames = new HashMap<String, String>();
 
-
     @FXML
     private TextField firstSearchField;
-    //private AutoCompletionBinding<String> autoCompletionBinding;
 
     @FXML
     private Label firstCityLabel;
@@ -123,38 +121,29 @@ public class WeatherAppController implements Initializable {
     @FXML
     private Label firstD5TempLabel;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setUpSearchTextField();
+        printCityNames();
     }
 
-    public void setUpSearchTextField(){
-        //firstSearchField.setText("Warszawa, PL");
+
+    public void setUpSearchTextField() {
+
         CityListLoaderService cityListLoaderService = new CityListLoaderService();
         cityListLoaderService.start();
         cityListLoaderService.setOnSucceeded(event -> {
-            List<CityCoordinates> cityList;
-            //HashMap cityNames = new HashMap<>();
-            cityList = cityListLoaderService.getValue();
-            for(CityCoordinates cityCoordinates: cityList) {
-                String city = cityCoordinates.getName();
-                System.out.println(city);
-                String countryCode = cityCoordinates.getCountry();
-                cityNames.put(city, city + ", " + countryCode);
-            };
-
+            cityNames = cityListLoaderService.getValue();
+            TextFields.bindAutoCompletion(firstSearchField, cityNames.keySet());
         });
-        //List<String> possibleCities = new ArrayList<>();
-      // possibleCities.add("London");
-       // possibleCities.add("Wroclaw");
-       // possibleCities.add("Warsaw");*/
 
-        //Map<String, String> cityNames = new HashMap<String, String>();
-        //cityNames.put("London", "London GB");
-        //cityNames.put("Wroclaw", "Wroclaw PL");
-        //System.out.println(cityNames);
-        TextFields.bindAutoCompletion(firstSearchField, cityNames.values());
     }
+
+    public void printCityNames() {
+        System.out.println(cityNames.keySet());
+    }
+
 }
 

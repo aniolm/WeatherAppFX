@@ -1,39 +1,46 @@
 package pl.wroclaw.asma.controller.services;
 
-import com.opencsv.bean.CsvToBeanBuilder;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import pl.wroclaw.asma.model.CityCoordinates;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
-public class CityListLoaderService extends Service<List<CityCoordinates>> {
+public class CityListLoaderService extends Service<HashMap<String, String>> {
 
     @Override
-    protected Task<List<CityCoordinates>> createTask() {
-        return new Task<List<CityCoordinates>>() {
+    protected Task<HashMap<String, String>> createTask() {
+        return new Task<HashMap<String, String>>() {
             @Override
-            protected List<CityCoordinates> call() throws Exception {
+            protected HashMap<String, String>  call() throws Exception {
                 return loadCityList();
             }
         };
     }
 
-    private List<CityCoordinates> loadCityList() {
+    private HashMap<String, String> loadCityList() {
 
         String fileName = "src/main/resources/cities.csv";
-        List<CityCoordinates> cityList = new ArrayList<>();
+        HashMap cityList = new HashMap<String, String>();
 
         try {
-            cityList = new CsvToBeanBuilder(new FileReader(fileName))
-                    .withType(CityCoordinates.class)
-                    .withSeparator(';')
-                    .build()
-                    .parse();
-        } catch (FileNotFoundException e) {
+
+            Reader in = new FileReader( fileName );
+
+            CSVParser parser = new CSVParser( in, CSVFormat.DEFAULT.withDelimiter(';') );
+            List<CSVRecord> csvCityList = parser.getRecords();
+
+            for( CSVRecord row : csvCityList ){
+                cityList.put(row.get(0) + " / "+ row.get(3),row.get(1) + ", "+ row.get(2));
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return cityList;
