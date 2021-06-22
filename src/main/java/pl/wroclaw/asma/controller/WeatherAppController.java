@@ -2,6 +2,7 @@ package pl.wroclaw.asma.controller;
 
 import de.jensd.fx.glyphs.weathericons.WeatherIcon;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -129,6 +130,14 @@ public class WeatherAppController implements Initializable {
     private Label d5TempLabel;
 
 
+    @FXML
+    void searchCity() {
+        System.out.println("dupa");
+        getWeather(searchField.getText());
+
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //cityCoordinates.setName("Wroclaw");
@@ -136,10 +145,13 @@ public class WeatherAppController implements Initializable {
         setUpSearchTextField();
         getWeather("Wroclaw / PL");
 
+
+
     }
 
 
     public void setUpSearchTextField() {
+
         HashMap<String, String> cityList = new HashMap<String, String>();
         CityListLoaderService cityListLoaderService = new CityListLoaderService();
         cityListLoaderService.start();
@@ -155,12 +167,12 @@ public class WeatherAppController implements Initializable {
         String[] city = cityNameWithCountryCode.split(" / ");
 
         GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(city[0], city[1]);
-        geocodingApiClientService.start();
+        geocodingApiClientService.restart();
 
         geocodingApiClientService.setOnSucceeded(event -> {
             CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
             WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
-            weatherApiClientService.start();
+            weatherApiClientService.restart();
 
             weatherApiClientService.setOnSucceeded(event2 -> {
                 weatherForecast = weatherApiClientService.getValue();
