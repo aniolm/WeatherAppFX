@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
+import pl.wroclaw.asma.DateTime;
 import pl.wroclaw.asma.controller.services.CityListLoaderService;
 import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
 import pl.wroclaw.asma.controller.services.WeatherApiClientService;
@@ -25,108 +25,112 @@ public class WeatherAppController implements Initializable {
     private Map<String, String> cityNames = new HashMap<String, String>();
 
     @FXML
-    private TextField firstSearchField;
+    private TextField searchField;
 
     @FXML
-    private Label firstCityLabel;
+    private Label cityLabel;
 
     @FXML
-    private WeatherIconView firstCurrentWeatherIcon;
+    private WeatherIconView currentWeatherIcon;
 
     @FXML
-    private Label firstCurrentTempLabel;
+    private Label currentTempLabel;
 
     @FXML
-    private Label firstCurrentWeatherLabel;
+    private Label currentWeatherLabel;
 
     @FXML
-    private Label firstCurrentFeelsLikeLabel;
+    private Label currentFeelsLikeLabel;
 
     @FXML
-    private Label firstCurrenPressLabel;
+    private Label currenPressLabel;
 
     @FXML
-    private Label firstCurrentWindSpeedLabel;
+    private Label currentWindSpeedLabel;
 
     @FXML
-    private Label firstCurrentDateTimeLabel;
+    private Label currentDateTimeLabel;
 
     @FXML
-    private Label firstD1DayLabel;
+    private Label d1DayLabel;
 
     @FXML
-    private Label firstD1DateLabel;
+    private Label d1DateLabel;
 
     @FXML
-    private WeatherIconView firstD1WeatherIcon;
+    private WeatherIconView d1WeatherIcon;
 
     @FXML
-    private Label firstD1TempLabel;
+    private Label d1TempLabel;
 
     @FXML
-    private Label firstD1WeatherLabel;
+    private Label d1WeatherLabel;
 
     @FXML
-    private Label firstD2DayLabel;
+    private Label d2DayLabel;
 
     @FXML
-    private Label firstD2DateLabel;
+    private Label d2DateLabel;
 
     @FXML
-    private WeatherIconView firstD2WeatherIcon;
+    private WeatherIconView d2WeatherIcon;
 
     @FXML
-    private Label firstD2TempLabel;
+    private Label d2TempLabel;
 
     @FXML
-    private Label firstD2WeatherLabel;
+    private Label d2WeatherLabel;
 
     @FXML
-    private Label firstD3DayLabel;
+    private Label d3DayLabel;
 
     @FXML
-    private Label firstD3DateLabel;
+    private Label d3DateLabel;
 
     @FXML
-    private WeatherIconView firstD3WeatherIcon;
+    private WeatherIconView d3WeatherIcon;
 
     @FXML
-    private Label firstD3TempLabel;
+    private Label d3TempLabel;
 
     @FXML
-    private Label firstD3WeatherLabel;
+    private Label d3WeatherLabel;
 
     @FXML
-    private Label firstD4DayLabel;
+    private Label d4WeatherLabel;
 
     @FXML
-    private Label firstD4DateLabel;
+    private Label d4DayLabel;
 
     @FXML
-    private WeatherIconView firstD4WeatherIcon;
+    private Label d4DateLabel;
 
     @FXML
-    private Label firstD4TempLabel;
+    private WeatherIconView d4WeatherIcon;
 
     @FXML
-    private Label firstD4WeatherLabel;
+    private Label d4TempLabel;
 
     @FXML
-    private Label firstD5DayLabel;
+    private Label d5WeatherLabel;
 
     @FXML
-    private Label firstD5DateLabel;
+    private Label d5DayLabel;
 
     @FXML
-    private WeatherIconView firstD5WeatherIcon;
+    private Label d5DateLabel;
 
     @FXML
-    private Label firstD5TempLabel;
+    private WeatherIconView d5WeatherIcon;
+
+    @FXML
+    private Label d5TempLabel;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //cityCoordinates.setName("Wroclaw");
+        //cityCoordinates.setCountry("PL");
         setUpSearchTextField();
         getWeather("Wroclaw / PL");
 
@@ -139,7 +143,7 @@ public class WeatherAppController implements Initializable {
         cityListLoaderService.start();
         cityListLoaderService.setOnSucceeded(event -> {
             cityNames = cityListLoaderService.getValue();
-            TextFields.bindAutoCompletion(firstSearchField, cityNames.keySet());
+            TextFields.bindAutoCompletion(searchField, cityNames.keySet());
 
         });
 
@@ -158,16 +162,60 @@ public class WeatherAppController implements Initializable {
 
             weatherApiClientService.setOnSucceeded(event2 -> {
                 weatherForecast = weatherApiClientService.getValue();
-                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getMain());
-                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getDescription());
-                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getIcon());
-                System.out.println(weatherForecast.getCurrentWeather().getTemp());
-                System.out.println(weatherForecast.getCurrentWeather().getPressure());
-                System.out.println(weatherForecast.getCurrentWeather().getWind_speed());
+                updateLabels(cityNameWithCountryCode);
 
             });
         });
     }
+
+    private void updateLabels(String cityNameWithCountryCode ){
+        //actual weather
+       cityLabel.setText(cityNameWithCountryCode);
+       //currentWeatherIcon.setIcon();
+       currentTempLabel.setText(weatherForecast.getCurrentWeather().getTemp() + "°C");
+       currentWeatherLabel.setText(weatherForecast.getCurrentWeather().getWeather().get(0).getDescription());
+       currentFeelsLikeLabel.setText("Feels like: " + weatherForecast.getCurrentWeather().getFeels_like().toString() + "°C");
+       currenPressLabel.setText("Pressure: " + weatherForecast.getCurrentWeather().getPressure().toString() + "hPa");
+       currentWindSpeedLabel.setText("Wind speed: " + weatherForecast.getCurrentWeather().getWind_speed().toString() + "km/h");
+       currentDateTimeLabel.setText(DateTime.getActualDateTime());
+
+       //Day 1 weather forcast
+       d1DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(1).getDt()));
+       d1DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(1).getDt()));
+       //d1WeatherIcon.setIcon();
+        d1TempLabel.setText(weatherForecast.getDailyWeathers().get(1).getTemp().getDay().toString() + "°C");
+        d1WeatherLabel.setText(weatherForecast.getDailyWeathers().get(1).getWeather().get(0).getMain());
+
+        //Day 2 weather forcast
+        d2DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(2).getDt()));
+        d2DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(2).getDt()));
+        //d2WeatherIcon.setIcon();
+        d2TempLabel.setText(weatherForecast.getDailyWeathers().get(2).getTemp().getDay().toString() + "°C");
+        d2WeatherLabel.setText(weatherForecast.getDailyWeathers().get(2).getWeather().get(0).getMain());
+
+        //Day 3 weather forcast
+        d3DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(3).getDt()));
+        d3DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(3).getDt()));
+        //d3WeatherIcon.setIcon();
+        d3TempLabel.setText(weatherForecast.getDailyWeathers().get(3).getTemp().getDay().toString() + "°C");
+        d3WeatherLabel.setText(weatherForecast.getDailyWeathers().get(3).getWeather().get(0).getMain());
+
+        //Day 4 weather forcast
+        d4DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(4).getDt()));
+        d4DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(4).getDt()));
+        //d4WeatherIcon.setIcon();
+        d4TempLabel.setText(weatherForecast.getDailyWeathers().get(4).getTemp().getDay().toString() + "°C");
+        d4WeatherLabel.setText(weatherForecast.getDailyWeathers().get(4).getWeather().get(0).getMain());
+
+        //Day 5 weather forcast
+        d5DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(5).getDt()));
+        d5DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(5).getDt()));
+        //d5WeatherIcon.setIcon();
+        d5TempLabel.setText(weatherForecast.getDailyWeathers().get(5).getTemp().getDay().toString() + "°C");
+        d5WeatherLabel.setText(weatherForecast.getDailyWeathers().get(5).getWeather().get(0).getMain());
+
+    }
+
 
 
 }

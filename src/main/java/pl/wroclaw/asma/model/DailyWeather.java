@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class DailyWeather {
+    private Long dt;
 
     private Integer pressure;
 
@@ -14,6 +15,14 @@ public class DailyWeather {
 
     @JsonProperty("temp")
     private Temperature temperature;
+
+    public Long getDt() {
+        return dt;
+    }
+
+    public void setDt(Long dt) {
+        this.dt = dt;
+    }
 
     private List<Weather> weather;
 

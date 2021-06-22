@@ -7,9 +7,9 @@ import java.util.List;
 
 public class CurrentWeather {
 
-    private Double temp;
+    private Integer temp;
 
-    private Double feels_like;
+    private Integer feels_like;
 
     private Integer pressure;
 
@@ -19,19 +19,19 @@ public class CurrentWeather {
 
     private List<Weather> weather;
 
-    public Double getTemp() {
+    public Integer getTemp() {
         return temp;
     }
 
-    public void setTemp(Double temp) {
+    public void setTemp(Integer temp) {
         this.temp = temp;
     }
 
-    public Double getFeels_like() {
+    public Integer getFeels_like() {
         return feels_like;
     }
 
-    public void setFeels_like(Double feels_like) {
+    public void setFeels_like(Integer feels_like) {
         this.feels_like = feels_like;
     }
 

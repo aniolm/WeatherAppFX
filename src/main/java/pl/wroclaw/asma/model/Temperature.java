@@ -4,68 +4,68 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Temperature {
     //@JsonProperty("day")
-    private Double day;
+    private Integer day;
 
     //@JsonProperty("min")
-    private Double min;
+    private Integer min;
 
     //@JsonProperty("max")
-    private Double max;
+    private Integer max;
 
    // @JsonProperty("night")
-    private Double night;
+    private Integer night;
 
     //@JsonProperty("eve")
-    private Double eve;
+    private Integer eve;
 
     //@JsonProperty("morn")
-    private Double morn;
+    private Integer morn;
 
-    public Double getDay() {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(Double day) {
+    public void setDay(Integer day) {
         this.day = day;
     }
 
-    public Double getMin() {
+    public Integer getMin() {
         return min;
     }
 
-    public void setMin(Double min) {
+    public void setMin(Integer min) {
         this.min = min;
     }
 
-    public Double getMax() {
+    public Integer getMax() {
         return max;
     }
 
-    public void setMax(Double max) {
+    public void setMax(Integer max) {
         this.max = max;
     }
 
-    public Double getNight() {
+    public Integer getNight() {
         return night;
     }
 
-    public void setNight(Double night) {
+    public void setNight(Integer night) {
         this.night = night;
     }
 
-    public Double getEve() {
+    public Integer getEve() {
         return eve;
     }
 
-    public void setEve(Double eve) {
+    public void setEve(Integer eve) {
         this.eve = eve;
     }
 
-    public Double getMorn() {
+    public Integer getMorn() {
         return morn;
     }
 
-    public void setMorn(Double morn) {
+    public void setMorn(Integer morn) {
         this.morn = morn;
     }
 }
