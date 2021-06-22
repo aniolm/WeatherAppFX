@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import pl.wroclaw.asma.controller.services.CityListLoaderService;
+import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
+import pl.wroclaw.asma.controller.services.WeatherApiClientService;
 import pl.wroclaw.asma.model.CityCoordinates;
 import pl.wroclaw.asma.model.IpGeolocation;
 import pl.wroclaw.asma.model.WeatherForecast;
@@ -126,24 +128,47 @@ public class WeatherAppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setUpSearchTextField();
-        printCityNames();
+        getWeather("Wroclaw / PL");
+
     }
 
 
     public void setUpSearchTextField() {
-
+        HashMap<String, String> cityList = new HashMap<String, String>();
         CityListLoaderService cityListLoaderService = new CityListLoaderService();
         cityListLoaderService.start();
         cityListLoaderService.setOnSucceeded(event -> {
             cityNames = cityListLoaderService.getValue();
             TextFields.bindAutoCompletion(firstSearchField, cityNames.keySet());
+
         });
 
     }
 
-    public void printCityNames() {
-        System.out.println(cityNames.keySet());
+    public void getWeather(String cityNameWithCountryCode) {
+        String[] city = cityNameWithCountryCode.split(" / ");
+
+        GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(city[0], city[1]);
+        geocodingApiClientService.start();
+
+        geocodingApiClientService.setOnSucceeded(event -> {
+            CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
+            WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
+            weatherApiClientService.start();
+
+            weatherApiClientService.setOnSucceeded(event2 -> {
+                weatherForecast = weatherApiClientService.getValue();
+                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getMain());
+                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getDescription());
+                System.out.println(weatherForecast.getCurrentWeather().getWeather().get(0).getIcon());
+                System.out.println(weatherForecast.getCurrentWeather().getTemp());
+                System.out.println(weatherForecast.getCurrentWeather().getPressure());
+                System.out.println(weatherForecast.getCurrentWeather().getWind_speed());
+
+            });
+        });
     }
+
 
 }
 

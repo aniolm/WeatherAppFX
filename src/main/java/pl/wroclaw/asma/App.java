@@ -47,21 +47,7 @@ public class App extends Application {
         ipGeolocationApiClientService.start();
         ipGeolocationApiClientService.setOnSucceeded(event1 -> {
             IpGeolocation ipGeolocation = ipGeolocationApiClientService.getValue();
-            GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(ipGeolocation.getCity(), ipGeolocation.getCity());
-            geocodingApiClientService.start();
 
-            geocodingApiClientService.setOnSucceeded(event2 -> {
-                CityCoordinates cityCoordinates = geocodingApiClientService.getValue();
-                WeatherApiClientService weatherApiClientService = new WeatherApiClientService(cityCoordinates.getLat(),cityCoordinates.getLon());
-                weatherApiClientService.start();
-
-                weatherApiClientService.setOnSucceeded(event3 -> {
-                    WeatherForecast weatherForecast = weatherApiClientService.getValue();
-                    System.out.println(weatherForecast.getCurrentWeather().getTemp());
-                    System.out.println(weatherForecast.getCurrentWeather().getPressure());
-                    System.out.println(weatherForecast.getCurrentWeather().getHumidity());
-                    });
-                 });
         });
         });
     }
