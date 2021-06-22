@@ -19,7 +19,7 @@
             <HBox alignment="CENTER" prefHeight="33.0" prefWidth="218.0" spacing="2.0">
                <children>
                   <TextField fx:id="searchField" onAction="#searchCity" prefHeight="23.0" prefWidth="150.0" styleClass="text_field" />
-                  <Button mnemonicParsing="false">
+                  <Button mnemonicParsing="false" onAction="#getCurrentLocation">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="CROSSHAIRS" />
                      </graphic>

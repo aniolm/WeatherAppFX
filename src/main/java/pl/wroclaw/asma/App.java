@@ -38,17 +38,6 @@ public class App extends Application {
         stage.setY(y);
 
 
-        PublicIpIdentificationService publicIpIdentificationService = new PublicIpIdentificationService();
-        publicIpIdentificationService.start();
-        publicIpIdentificationService.setOnSucceeded(event -> {
-
-        IpGeolocationApiClientService ipGeolocationApiClientService = new IpGeolocationApiClientService(publicIpIdentificationService.getValue());
-        ipGeolocationApiClientService.start();
-        ipGeolocationApiClientService.setOnSucceeded(event1 -> {
-            IpGeolocation ipGeolocation = ipGeolocationApiClientService.getValue();
-
-        });
-        });
     }
 
     public static void main(String[] args) {
