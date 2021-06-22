@@ -1,11 +1,13 @@
 package pl.wroclaw.asma.controller;
 
+import de.jensd.fx.glyphs.weathericons.WeatherIcon;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.wroclaw.asma.DateTime;
+import pl.wroclaw.asma.IconResolver;
 import pl.wroclaw.asma.controller.services.CityListLoaderService;
 import pl.wroclaw.asma.controller.services.GeocodingApiClientService;
 import pl.wroclaw.asma.controller.services.WeatherApiClientService;
@@ -171,7 +173,7 @@ public class WeatherAppController implements Initializable {
     private void updateLabels(String cityNameWithCountryCode ){
         //actual weather
        cityLabel.setText(cityNameWithCountryCode);
-       //currentWeatherIcon.setIcon();
+       currentWeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getCurrentWeather().getWeather().get(0).getIcon()));
        currentTempLabel.setText(weatherForecast.getCurrentWeather().getTemp() + "°C");
        currentWeatherLabel.setText(weatherForecast.getCurrentWeather().getWeather().get(0).getDescription());
        currentFeelsLikeLabel.setText("Feels like: " + weatherForecast.getCurrentWeather().getFeels_like().toString() + "°C");
@@ -182,35 +184,35 @@ public class WeatherAppController implements Initializable {
        //Day 1 weather forcast
        d1DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(1).getDt()));
        d1DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(1).getDt()));
-       //d1WeatherIcon.setIcon();
+       d1WeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getDailyWeathers().get(1).getWeather().get(0).getIcon()));
         d1TempLabel.setText(weatherForecast.getDailyWeathers().get(1).getTemp().getDay().toString() + "°C");
         d1WeatherLabel.setText(weatherForecast.getDailyWeathers().get(1).getWeather().get(0).getMain());
 
         //Day 2 weather forcast
         d2DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(2).getDt()));
         d2DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(2).getDt()));
-        //d2WeatherIcon.setIcon();
+        d2WeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getDailyWeathers().get(2).getWeather().get(0).getIcon()));
         d2TempLabel.setText(weatherForecast.getDailyWeathers().get(2).getTemp().getDay().toString() + "°C");
         d2WeatherLabel.setText(weatherForecast.getDailyWeathers().get(2).getWeather().get(0).getMain());
 
         //Day 3 weather forcast
         d3DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(3).getDt()));
         d3DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(3).getDt()));
-        //d3WeatherIcon.setIcon();
+        d3WeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getDailyWeathers().get(3).getWeather().get(0).getIcon()));
         d3TempLabel.setText(weatherForecast.getDailyWeathers().get(3).getTemp().getDay().toString() + "°C");
         d3WeatherLabel.setText(weatherForecast.getDailyWeathers().get(3).getWeather().get(0).getMain());
 
         //Day 4 weather forcast
         d4DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(4).getDt()));
         d4DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(4).getDt()));
-        //d4WeatherIcon.setIcon();
+        d4WeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getDailyWeathers().get(4).getWeather().get(0).getIcon()));
         d4TempLabel.setText(weatherForecast.getDailyWeathers().get(4).getTemp().getDay().toString() + "°C");
         d4WeatherLabel.setText(weatherForecast.getDailyWeathers().get(4).getWeather().get(0).getMain());
 
         //Day 5 weather forcast
         d5DayLabel.setText(DateTime.getDayName(weatherForecast.getDailyWeathers().get(5).getDt()));
         d5DateLabel.setText(DateTime.convertDate(weatherForecast.getDailyWeathers().get(5).getDt()));
-        //d5WeatherIcon.setIcon();
+        d5WeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getDailyWeathers().get(5).getWeather().get(0).getIcon()));
         d5TempLabel.setText(weatherForecast.getDailyWeathers().get(5).getTemp().getDay().toString() + "°C");
         d5WeatherLabel.setText(weatherForecast.getDailyWeathers().get(5).getWeather().get(0).getMain());
 

@@ -8,9 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import pl.wroclaw.asma.controller.services.*;
-import pl.wroclaw.asma.model.CityCoordinates;
 import pl.wroclaw.asma.model.IpGeolocation;
-import pl.wroclaw.asma.model.WeatherForecast;
+
 
 import java.io.IOException;
 
