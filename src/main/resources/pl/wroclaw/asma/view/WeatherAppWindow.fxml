@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="213.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.wroclaw.asma.controller.WeatherAppController">
+<AnchorPane prefHeight="400.0" prefWidth="213.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <VBox layoutY="14.0" prefHeight="400.0" prefWidth="223.0" styleClass="main_vbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,7 +24,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="CROSSHAIRS" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false">
+                  <Button mnemonicParsing="false" onAction="#openNewWindow">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS_SQUARE_ALT" />
                      </graphic>

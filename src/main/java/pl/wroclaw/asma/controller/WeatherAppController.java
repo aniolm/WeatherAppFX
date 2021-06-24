@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.wroclaw.asma.DateTime;
 import pl.wroclaw.asma.IconResolver;
+import pl.wroclaw.asma.ViewFactory;
 import pl.wroclaw.asma.controller.services.*;
 import pl.wroclaw.asma.model.CityCoordinates;
 import pl.wroclaw.asma.model.IpGeolocation;
@@ -20,6 +21,10 @@ import java.util.*;
 
 public class WeatherAppController implements Initializable {
 
+
+
+    private String fxmlName;
+    private ViewFactory viewFactory;
     private IpGeolocation ipGeolocation;
     private CityCoordinates cityCoordinates;
     private WeatherForecast weatherForecast;
@@ -127,6 +132,14 @@ public class WeatherAppController implements Initializable {
     @FXML
     private Label d5TempLabel;
 
+    public WeatherAppController( String fxmlName, ViewFactory viewFactory) {
+        this.fxmlName = fxmlName;
+        this.viewFactory = viewFactory;
+    }
+
+    public String getFxmlName() {
+        return fxmlName;
+    }
 
     @FXML
     void searchCity() {
@@ -136,6 +149,11 @@ public class WeatherAppController implements Initializable {
     @FXML
     void getCurrentLocation() {
         getLocation();
+    }
+
+    @FXML
+    void openNewWindow() {
+        createWindow();
     }
 
 
@@ -242,6 +260,11 @@ public class WeatherAppController implements Initializable {
                 getWeather(ipGeolocation.getCity() + " / " + ipGeolocation.getCountryCode());
             });
         });
+    }
+
+    private void createWindow() {
+
+        viewFactory.showNewWindow();
     }
 
 }
