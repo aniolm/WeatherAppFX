@@ -62,7 +62,6 @@ public class GeocodingApiClientService extends Service<CityCoordinates> {
     }
 
     public URI createRequestURI(String city, String countryCode){
-
         URI requestURL =  URI.create("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + countryCode + "&limit=1&appid=99906e25ff6d624254c547ed44f5914f");
         return requestURL;
     }

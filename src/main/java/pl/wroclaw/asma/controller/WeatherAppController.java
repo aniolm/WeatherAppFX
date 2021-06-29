@@ -159,8 +159,6 @@ public class WeatherAppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //cityCoordinates.setName("Wroclaw");
-        //cityCoordinates.setCountry("PL");
         setUpSearchTextField();
         getWeather("Wroclaw / PL");
 
@@ -183,8 +181,7 @@ public class WeatherAppController implements Initializable {
 
     public void getWeather(String cityNameWithCountryCode) {
         String[] city = cityNameWithCountryCode.split(" / ");
-
-        GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(city[0], city[1]);
+        GeocodingApiClientService geocodingApiClientService = new GeocodingApiClientService(city[0].replace(" ", "+"), city[1]);
         geocodingApiClientService.restart();
 
         geocodingApiClientService.setOnSucceeded(event -> {
