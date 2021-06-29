@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import pl.wroclaw.asma.Config;
 import pl.wroclaw.asma.model.CityCoordinates;
 
 import java.io.IOException;
@@ -62,7 +63,8 @@ public class GeocodingApiClientService extends Service<CityCoordinates> {
     }
 
     public URI createRequestURI(String city, String countryCode){
-        URI requestURL =  URI.create("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + countryCode + "&limit=1&appid=99906e25ff6d624254c547ed44f5914f");
+        URI requestURL =  URI.create("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "," + countryCode +
+                "&limit=1&appid=" + Config.getOpenWeatherMapApiKey() );
         return requestURL;
     }
 }

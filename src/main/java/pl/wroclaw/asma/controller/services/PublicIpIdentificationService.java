@@ -33,7 +33,6 @@ public class PublicIpIdentificationService extends Service<String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(ipAddress);
         return ipAddress;
     }
 }

@@ -5,6 +5,7 @@ import javafx.concurrent.Task;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import pl.wroclaw.asma.Config;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class CityListLoaderService extends Service<HashMap<String, String>> {
 
     private HashMap<String, String> loadCityList() {
 
-        String fileName = "src/main/resources/cities.csv";
+        String fileName = Config.getCitiesFileName();
         HashMap cityList = new HashMap<String, String>();
 
         try {

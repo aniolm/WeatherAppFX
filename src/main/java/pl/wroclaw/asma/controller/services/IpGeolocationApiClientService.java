@@ -6,6 +6,7 @@ import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import pl.wroclaw.asma.Config;
 import pl.wroclaw.asma.model.IpGeolocation;
 import com.maxmind.geoip2.WebServiceClient;
 
@@ -34,8 +35,8 @@ public class IpGeolocationApiClientService extends Service<IpGeolocation> {
     private IpGeolocation getIpGeolocation() {
         IpGeolocation ipGeolocation = new IpGeolocation();
 
-        try (WebServiceClient client = new WebServiceClient.Builder(560122, "EiQfAeZkqu5E6NuF").host("geolite.info")
-                .build()) {
+        try (WebServiceClient client = new WebServiceClient.Builder(Config.getIpGeoLocationAccountId(),
+                Config.getIpGeolocationLicenseKey()).host(Config.getIpGeolocationHost()).build()) {
 
             InetAddress ipAddress = InetAddress.getByName(ip);
 

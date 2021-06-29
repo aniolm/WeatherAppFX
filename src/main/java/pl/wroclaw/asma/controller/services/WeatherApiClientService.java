@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import pl.wroclaw.asma.Config;
 import pl.wroclaw.asma.model.WeatherForecast;
 
 import java.io.IOException;
@@ -60,10 +61,10 @@ public class WeatherApiClientService extends Service<WeatherForecast>  {
     }
 
     public URI createRequestURI(){
-        //System.out.println(latitude.toString());
-        //System.out.println(longitude.toString());
-        URI requestURL =  URI.create("https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&units=metric&lang=en&exclude=minutely,hourly,alerts&appid=99906e25ff6d624254c547ed44f5914f");
-        //System.out.println(requestURL);
+
+        URI requestURL =  URI.create("https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" +
+                longitude + "&units=metric&lang=en&exclude=minutely,hourly,alerts&appid=" + Config.getOpenWeatherMapApiKey());
+
         return requestURL;
     }
 
