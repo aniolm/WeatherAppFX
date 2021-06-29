@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
 import pl.wroclaw.asma.DateTime;
 import pl.wroclaw.asma.IconResolver;
 import pl.wroclaw.asma.ViewFactory;
@@ -20,7 +21,6 @@ import java.net.URL;
 import java.util.*;
 
 public class WeatherAppController implements Initializable {
-
 
 
     private String fxmlName;
@@ -132,7 +132,7 @@ public class WeatherAppController implements Initializable {
     @FXML
     private Label d5TempLabel;
 
-    public WeatherAppController( String fxmlName, ViewFactory viewFactory) {
+    public WeatherAppController(String fxmlName, ViewFactory viewFactory) {
         this.fxmlName = fxmlName;
         this.viewFactory = viewFactory;
     }
@@ -198,6 +198,18 @@ public class WeatherAppController implements Initializable {
     }
 
     private void updateLabels(String cityNameWithCountryCode) {
+
+        cityLabel.setFont(new Font(30.0));
+        if (cityNameWithCountryCode.length() > 15) {
+            cityLabel.setFont(new Font(25.0));
+        }
+        if (cityNameWithCountryCode.length() > 20) {
+            cityLabel.setFont(new Font(20.0));
+        }
+        if (cityNameWithCountryCode.length() > 23) {
+            cityLabel.setFont(new Font(17.0));
+        }
+
         //actual weather
         cityLabel.setText(cityNameWithCountryCode);
         currentWeatherIcon.setIcon(IconResolver.convertWeatherIcon(weatherForecast.getCurrentWeather().getWeather().get(0).getIcon()));
